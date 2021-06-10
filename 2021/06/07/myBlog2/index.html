@@ -11,34 +11,34 @@
   <meta charset="utf-8">
 
   
-  <title>All Posts - John Doe</title>
+  <title>Vue使用自定义指令实现按钮防抖功能，防止多次调接口</title>
   
-  <link rel="canonical" href="http://example.com/archives/2021/">
+  <link rel="canonical" href="http://example.com/2021/06/07/myBlog2/">
   
-  <meta name="description" content="">
+  <meta name="description" content="项目场景在开发中，有些提交保存按钮有时候会在短时间内被点击多次，这样就会多次重复请求后端接口，造成数据的混乱，比如新增表单的提交按钮，多次点击就会新增多条重复的数据。 在日常的开发中，在很多表单的提交过程中，会有保存按钮的多次点击的情况，如果不做处理，会造成数据的多次创建的情况。常见的解决办法有三种">
   
   
   <meta name="author" content="John Doe">
   
-  <meta property="og:image" content="http://example.com/images/thumbnail.jpg">
+  <meta property="og:image" content="http://example.comundefined">
   
   <meta property="og:site_name" content="Hexo" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="All Posts - John Doe" />
+  <meta property="og:title" content="Vue使用自定义指令实现按钮防抖功能，防止多次调接口" />
   
-  <meta property="og:description" content="">
+  <meta property="og:description" content="项目场景在开发中，有些提交保存按钮有时候会在短时间内被点击多次，这样就会多次重复请求后端接口，造成数据的混乱，比如新增表单的提交按钮，多次点击就会新增多条重复的数据。 在日常的开发中，在很多表单的提交过程中，会有保存按钮的多次点击的情况，如果不做处理，会造成数据的多次创建的情况。常见的解决办法有三种">
   
-  <meta property="og:url" content="http://example.com/archives/2021/" />
+  <meta property="og:url" content="http://example.com/2021/06/07/myBlog2/" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="All Posts - John Doe">
+  <meta name="twitter:title" content="Vue使用自定义指令实现按钮防抖功能，防止多次调接口">
   
-  <meta name="twitter:description" content="">
+  <meta name="twitter:description" content="项目场景在开发中，有些提交保存按钮有时候会在短时间内被点击多次，这样就会多次重复请求后端接口，造成数据的混乱，比如新增表单的提交按钮，多次点击就会新增多条重复的数据。 在日常的开发中，在很多表单的提交过程中，会有保存按钮的多次点击的情况，如果不做处理，会造成数据的多次创建的情况。常见的解决办法有三种">
   
   
-  <meta name="twitter:image" content="http://example.com/images/thumbnail.jpg">
+  <meta name="twitter:image" content="http://example.comundefined">
   
-  <meta name="twitter:url" content="http://example.com/archives/2021/" />
+  <meta name="twitter:url" content="http://example.com/2021/06/07/myBlog2/" />
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -189,96 +189,30 @@
 </div>
 
         <div class="trans">
-          
-<h2>All Posts</h2>
+            <h2>Vue使用自定义指令实现按钮防抖功能，防止多次调接口</h2>
 
+  <p><img src="https://img-blog.csdnimg.cn/20210602162736816.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMyMTgxOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="项目场景"><a href="#项目场景" class="headerlink" title="项目场景"></a>项目场景</h2><p>在开发中，有些提交保存按钮有时候会在短时间内被点击多次，这样就会多次重复请求后端接口，造成数据的混乱，比如新增表单的提交按钮，多次点击就会新增多条重复的数据。</p>
+<p>在日常的开发中，在很多表单的提交过程中，会有保存按钮的多次点击的情况，如果不做处理，会造成数据的多次创建的情况。常见的解决办法有三种：</p>
+<ol>
+<li>设置防抖，在按钮上进行防抖处理，规定时间内只会执行一次。</li>
+<li>在提交按钮上添加loading效果，通过loading状态防止多次点击。</li>
+<li>在接口处进行防抖处理，防止同一接口的多次调用。</li>
+</ol>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><ul>
+<li>首先，我们需要定义一个延迟执行的方法</li>
+<li>其次，如果在延迟时间内再调用了该方法，则需要重新计算执行时间</li>
+<li>在满足时间的情况下，执行逻辑</li>
+</ul>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://img-blog.csdnimg.cn/20210602173539895.png" alt="在这里插入图片描述"></p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  	 <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;btn-debounce&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">el-button</span> <span class="attr">v-debounce</span>=<span class="string">&quot;debounceClick&quot;</span>&gt;</span>防抖<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">import</span> debounce <span class="keyword">from</span> <span class="string">&#x27;../../directive/test/debounce&#x27;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">directives</span>: &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    debounce</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">return</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">methods</span>:&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">     <span class="function"><span class="title">debounceClick</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="built_in">console</span>.log(<span class="string">&#x27;只触发一次！！！&#x27;</span>)</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>debounce.js文件如下：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debounce = &#123;</span><br><span class="line">  <span class="attr">inserted</span>: <span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer</span><br><span class="line">    el.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">      &#125;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        binding.value()</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> debounce</span><br></pre></td></tr></table></figure>
+<p>如有疑问，欢迎评论区留言。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210602155341864.gif#pic_center" alt="在这里插入图片描述"></p>
 
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Jun 10, 2021</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2021/06/10/myBlog/" class="">
-            
-              Vue使用自定义指令实现页面图片懒加载功能
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Jun 9, 2021</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2021/06/09/hello-world/" class="">
-            
-              Vue使用自定义指令实现页面底部加水印功能
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Jun 8, 2021</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2021/06/08/myBlog1/" class="">
-            
-              Vue使用自定义指令实现按钮在区域内任意拖拽移动
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Jun 7, 2021</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2021/06/07/myBlog2/" class="">
-            
-              Vue使用自定义指令实现按钮防抖功能，防止多次调接口
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Jun 6, 2021</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2021/06/06/myBlog3/" class="">
-            
-              Vue使用自定义指令实现点击复制功能，超简单！
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-<div class="pagination-bar">
-  <ul class="pagination">
-    
-    
-  </ul>
-</div>
+  <p> — Jun 7, 2021</p>
+  
 
 
           <div class="row mt-2">

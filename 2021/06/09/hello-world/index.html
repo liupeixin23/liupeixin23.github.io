@@ -11,11 +11,11 @@
   <meta charset="utf-8">
 
   
-  <title>Hello World</title>
+  <title>Vue使用自定义指令实现页面底部加水印功能</title>
   
   <link rel="canonical" href="http://example.com/2021/06/09/hello-world/">
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta name="description" content="项目场景给项目的整个背景加上自定义水印，可以改变水印的文案和字体颜色等 实现思路 这里使用的技术主要是canvas,在实现水印的过程中，主要使用了canvas的特性 使用 canvas 特性生成 base64 格式的图片文件，然后设置其字体大小，颜色等 最后将其设置为背景图片，这就实现了页面的水印效">
   
   
   <meta name="author" content="John Doe">
@@ -24,16 +24,16 @@
   
   <meta property="og:site_name" content="Hexo" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Hello World" />
+  <meta property="og:title" content="Vue使用自定义指令实现页面底部加水印功能" />
   
-  <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta property="og:description" content="项目场景给项目的整个背景加上自定义水印，可以改变水印的文案和字体颜色等 实现思路 这里使用的技术主要是canvas,在实现水印的过程中，主要使用了canvas的特性 使用 canvas 特性生成 base64 格式的图片文件，然后设置其字体大小，颜色等 最后将其设置为背景图片，这就实现了页面的水印效">
   
   <meta property="og:url" content="http://example.com/2021/06/09/hello-world/" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hello World">
+  <meta name="twitter:title" content="Vue使用自定义指令实现页面底部加水印功能">
   
-  <meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta name="twitter:description" content="项目场景给项目的整个背景加上自定义水印，可以改变水印的文案和字体颜色等 实现思路 这里使用的技术主要是canvas,在实现水印的过程中，主要使用了canvas的特性 使用 canvas 特性生成 base64 格式的图片文件，然后设置其字体大小，颜色等 最后将其设置为背景图片，这就实现了页面的水印效">
   
   
   <meta name="twitter:image" content="http://example.comundefined">
@@ -189,23 +189,23 @@
 </div>
 
         <div class="trans">
-            <h2>Hello World</h2>
+            <h2>Vue使用自定义指令实现页面底部加水印功能</h2>
 
-  <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+  <p><img src="https://img-blog.csdnimg.cn/20210602174102778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMyMTgxOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="项目场景"><a href="#项目场景" class="headerlink" title="项目场景"></a>项目场景</h2><p>给项目的整个背景加上自定义水印，可以改变水印的文案和字体颜色等</p>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><ul>
+<li>这里使用的技术主要是<code>canvas</code>,在实现水印的过程中，主要使用了<code>canvas</code>的特性</li>
+<li>使用 <code>canvas</code> 特性生成 <code>base64</code> 格式的图片文件，然后设置其字体大小，颜色等</li>
+<li>最后将其设置为背景图片，这就实现了页面的水印效果</li>
+</ul>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://img-blog.csdnimg.cn/20210602175402663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMyMTgxOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;water-marker&quot;</span> &gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-waterMarker</span>=<span class="string">&quot;&#123;text:&#x27;卡洛背心 - 版权所有&#x27;,textColor:&#x27;rgba(180, 180, 180, 0.4)&#x27;&#125;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;water-marker-item&quot;</span>&gt;</span>测试问题啊测试问题啊测试问题啊测试问题啊测试问题啊测试问题啊<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">import</span> waterMarker <span class="keyword">from</span> <span class="string">&#x27;../../directive/test/waterMarker&#x27;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">directives</span>: &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">   	waterMarker</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">return</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">methods</span>:&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span></span><br><span class="line"><span class="css"><span class="xml"><span class="selector-class">.water-marker</span>&#123;</span></span></span><br><span class="line"><span class="css"><span class="xml">  <span class="attribute">height</span>: <span class="number">300px</span>;</span></span></span><br><span class="line"><span class="css"><span class="xml">  <span class="selector-class">.water-marker-item</span>&#123;</span></span></span><br><span class="line"><span class="css"><span class="xml">    <span class="attribute">line-height</span>: <span class="number">300px</span>;</span></span></span><br><span class="line"><span class="css"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="css"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="css"><span class="xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>waterMarker.js文件如下：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addWaterMarker</span>(<span class="params">str, parentNode, font, textColor</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 水印文字，父元素，字体，文字颜色</span></span><br><span class="line">  <span class="keyword">var</span> can = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>)</span><br><span class="line">  parentNode.appendChild(can)</span><br><span class="line">  can.width = <span class="number">200</span></span><br><span class="line">  can.height = <span class="number">150</span></span><br><span class="line">  can.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">  <span class="keyword">var</span> cans = can.getContext(<span class="string">&#x27;2d&#x27;</span>)</span><br><span class="line">  cans.rotate((-<span class="number">20</span> * <span class="built_in">Math</span>.PI) / <span class="number">180</span>)</span><br><span class="line">  cans.font = font || <span class="string">&#x27;16px Microsoft JhengHei&#x27;</span></span><br><span class="line">  cans.fillStyle = textColor || <span class="string">&#x27;rgba(180, 180, 180, 0.3)&#x27;</span></span><br><span class="line">  cans.textAlign = <span class="string">&#x27;left&#x27;</span></span><br><span class="line">  cans.textBaseline = <span class="string">&#x27;Middle&#x27;</span></span><br><span class="line">  cans.fillText(str, can.width / <span class="number">10</span>, can.height / <span class="number">2</span>)</span><br><span class="line">  parentNode.style.backgroundImage = <span class="string">&#x27;url(&#x27;</span> + can.toDataURL(<span class="string">&#x27;image/png&#x27;</span>) + <span class="string">&#x27;)&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> waterMarker = &#123;</span><br><span class="line">  <span class="attr">bind</span>: <span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</span><br><span class="line">    addWaterMarker(binding.value.text, el, binding.value.font, binding.value.textColor)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> waterMarker</span><br></pre></td></tr></table></figure>
+<p>如有疑问，欢迎评论区留言。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210602155341864.gif#pic_center" alt="在这里插入图片描述"></p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-  <p> — Jun 9, 2021</p>
+  <p><a class="classtest-link" href="/tags/Vue/" rel="tag">Vue</a> — Jun 9, 2021</p>
   
 
 
