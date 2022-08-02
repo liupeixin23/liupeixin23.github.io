@@ -1,3 +1,13 @@
+<!--
+ * @Author: liupeixin liupx@nancal.com
+ * @Date: 2022-08-01 17:37:30
+ * @LastEditors: liupeixin liupx@nancal.com
+ * @LastEditTime: 2022-08-02 15:40:15
+ * @FilePath: /my-blog/source/dragon/index.html
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by liupeixin liupx@nancal.com, All Rights Reserved. 
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +39,8 @@
 </head>
 <body>
   <div class="content">
+    <h2 id="name"></h2>
+    <h2 id="project"></h2>
     <br>
     <div>
       <textarea id="story" name="story" rows="6" cols="33"></textarea>
@@ -47,8 +59,26 @@
  </div>
 </body>
 <script type="text/javascript">
-  let name = '薛锦龙'
-  let project = '624工艺'
+  userList = {
+    xjl:'薛锦龙',
+    tk:'拓凯',
+    qxb:'齐信彬',
+  },
+  projectList = {
+    process:'624工艺',
+  }
+  window.onload = init()
+  function init(){
+    window.location.search.substring(1).split('&').forEach(function(item){
+      let arr = item.split('=')
+      console.log(arr)
+      if(arr[0] == 'name'){
+        document.getElementById("name").innerHTML =  userList[arr[1]]
+      } else if(arr[0] == 'project'){
+        document.getElementById("project").innerHTML = projectList[arr[1]]
+      }
+    })
+  }
   function formatDate(date = new Date()) {
     let month = date.getMonth() + 1
     let day = date.getDate()
@@ -56,6 +86,8 @@
   }
   let generateDailyReport = function () {
     let content =  document.getElementById("story").value;
+    let name =  document.getElementById("name").innerText;
+    let project =  document.getElementById("project").innerText;
     let date = new Date()
     let weekday = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六")
     let res =  '工作日报' + ' ' + name + ' ' + formatDate()  + ' ' + weekday[date.getDay()] + '<br>' + project
