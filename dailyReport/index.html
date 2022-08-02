@@ -8,7 +8,7 @@
   <style>
     .content{
       display: flex;
-      justify-content: center;ç
+      justify-content: center;
       align-content: flex-start;
       align-items: center;
       flex-direction: column;
@@ -28,6 +28,8 @@
 </head>
 <body>
   <div class="content">
+    <h2 id="name"></h2>
+    <h2 id="project"></h2>
     <br>
     <div>
       <textarea id="story" name="story" rows="6" cols="33"></textarea>
@@ -46,8 +48,38 @@
  </div>
 </body>
 <script type="text/javascript">
-  let name = '刘佩鑫'
-  let project = '数字化研发'
+  userList = {
+    lpx:'刘佩鑫',
+    lpb:'雷鹏宾',
+    xdg:'幸德国',
+    kxp:'康晓平',
+    zfm:'郑复明',
+    lzj:'刘振军',
+    jxq:'计欣奇',
+    cm:'长命',
+    wzx:'王子一',
+    ysy:'严申酉',
+    wpc:'汪鹏程',
+    wxf:'王玉凤',
+  },
+  projectList = {
+    process:'【数字化研发-工艺】',
+    lowcode:'【乐仓工坊】',
+    baseline:'【数字化研发-基线】', 
+    lzos:'【乐造OS】',
+  }
+  window.onload = init()
+  function init(){
+    window.location.search.substring(1).split('&').forEach(function(item){
+      let arr = item.split('=')
+      console.log(arr)
+      if(arr[0] == 'name'){
+        document.getElementById("name").innerHTML =  userList[arr[1]]
+      } else if(arr[0] == 'project'){
+        document.getElementById("project").innerHTML = projectList[arr[1]]
+      }
+    })
+  } 
   function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
   }
@@ -58,8 +90,10 @@
       padTo2Digits(date.getDate()),
     ].join('');
   }
-  let generateDailyReport = function () {
+  function generateDailyReport() {
     let content =  document.getElementById("story").value;
+    let name =  document.getElementById("name").innerText;
+    let project =  document.getElementById("project").innerText;
     let date = new Date()
     let weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
     let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[date.getDay()] + '<br>' + project
