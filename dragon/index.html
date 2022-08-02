@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
   <style>
     .content{
       display: flex;
-      justify-content: center;ç
+      justify-content: center;
       align-content: flex-start;
       align-items: center;
       flex-direction: column;
@@ -46,29 +47,22 @@
  </div>
 </body>
 <script type="text/javascript">
-  let name = '刘佩鑫'
-  let project = '数字化研发'
-  function padTo2Digits(num) {
-  return num.toString().padStart(2, '0');
-  }
+  let name = '薛锦龙'
+  let project = '624工艺'
   function formatDate(date = new Date()) {
-    return [
-      date.getFullYear(),
-      padTo2Digits(date.getMonth() + 1),
-      padTo2Digits(date.getDate()),
-    ].join('');
+    let month = date.getMonth() + 1
+    let day = date.getDate()
+    return month + '月' + day + '日'
   }
   let generateDailyReport = function () {
     let content =  document.getElementById("story").value;
     let date = new Date()
-    let weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-    let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[date.getDay()] + '<br>' + project
+    let weekday = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六")
+    let res =  '工作日报' + ' ' + name + ' ' + formatDate()  + ' ' + weekday[date.getDay()] + '<br>' + project
     let text = content.split('\n')
     let arr=  text.filter(str => !!str);
     arr.forEach(function(item, index){
-      if(item.length !== 0){
-        res += '<br>' + (index+1) + '.' + item
-      }
+      res += '<br>' + (index+1) + '.' + item
     })
     document.getElementById("res").innerHTML = res
   }
