@@ -87,20 +87,36 @@
   function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
   }
-  function formatDate(date = new Date()) {
+  function getTimeByZone(timezone = 8, date) {
+    // 本地时间距离（GMT时间）毫秒数
+    let nowDate = !date ? new Date().getTime() : new Date(date).getTime()
+    // 本地时间和格林威治时间差，单位分钟
+    let offset_GMT = new Date().getTimezoneOffset()
+    //  反推到格林尼治时间
+    let GMT = nowDate + offset_GMT * 60 * 1000
+    //  获取指定时区时间
+    let targetDate = new Date(GMT + timezone * 60 * 60 * 1000)
+    return targetDate
+  }
+  function formatDate() {
+    let nowTime = new Date()
+    let time = getTimeByZone(-3, nowTime)
+    let nowData = new Date(time)
     return [
-      date.getFullYear(),
-      padTo2Digits(date.getMonth() + 1),
-      padTo2Digits(date.getDate()),
+      nowData.getFullYear(),
+      padTo2Digits(nowData.getMonth() + 1),
+      padTo2Digits(nowData.getDate()),
     ].join('');
   }
   function generateDailyReport() {
     let content =  document.getElementById("story").value;
     let name =  document.getElementById("name").innerText;
     let project =  document.getElementById("project").innerText;
-    let date = new Date()
+    let nowTime = new Date()
+    let time = getTimeByZone(-3, nowTime)
+    let nowData = new Date(time)
     let weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-    let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[date.getDay()] + '<br>' + project
+    let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[nowTime.getDay()] + '<br>' + project
     let text = content.split('\n')
     let arr=  text.filter(str => !!str);
     arr.forEach(function(item, index){
