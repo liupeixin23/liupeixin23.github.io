@@ -116,7 +116,7 @@
     let time = getTimeByZone(-3, nowTime)
     let nowData = new Date(time)
     let weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-    let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[nowTime.getDay()] + '<br>' + project
+    let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[nowData.getDay()] + '<br>' + project
     let text = content.split('\n')
     let arr=  text.filter(str => !!str);
     arr.forEach(function(item, index){
