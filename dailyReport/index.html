@@ -7,6 +7,7 @@
   <title>生成日报</title>
   <style>
     .content{
+      height: 100%;
       display: flex;
       justify-content: center;
       align-content: flex-start;
@@ -14,7 +15,8 @@
       flex-direction: column;
     }
     .btn{
-      height: 30px;
+      height: 40px; 
+      width: 30%;
       margin-right: 8px;
       margin-bottom: 12px;
       border-radius: 3px;
@@ -23,6 +25,15 @@
       background-color: #1890ff;
       text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
       box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    }
+    .footer{
+      width: 80%;
+      position:fixed;
+      bottom: 35px;
+    }
+    .footer-btn{
+      display: flex;
+      justify-content: space-around;;
     }
   </style>
 </head>
@@ -35,16 +46,34 @@
       <textarea id="story" name="story" rows="6" cols="33"></textarea>
     </div>
     <br>
-    <div>
-      <button class="btn" type="submit" onclick="generateDailyReport()">
-        <strong>生成日报</strong>
-      </button>
-      <button class="btn" type="submit" onclick="copyToClipBoard()">
-        <strong>复制日报</strong>
-      </button>
-    </div>
+    <form id="form" action="" method="get" target="targetIfr">
+      <input type="checkbox" class="check checkChild" value="项目需求评审" name="name"> 
+      <span>项目需求评审</span>
+      <br>     
+      <input type="checkbox" class="check checkChild" value="项目迭代验收" name="name"> 
+      <span>项目迭代验收</span>
+      <br>  
+      <input type="checkbox" class="check checkChild" value="迭代用例评审" name="name"> 
+      <span>迭代用例评审</span>
+      <br>
+      <input type="checkbox" class="check checkChild" value="修复bug" name="name">
+      <span>修复bug</span>
+      <br>
+      <input type="checkbox" class="check checkChild" value="接口联调" name="name">
+      <span>接口联调</span>
+      <br>
+    </form>
     <br>
     <div id="res"></div>
+    <div class="footer">
+      <div class="footer-btn">
+        <button class="btn" type="submit" onclick="generateDailyReport()">
+        <strong>生成日报</strong>
+        </button>
+        <button class="btn" type="submit" onclick="copyToClipBoard()">
+          <strong>复制日报</strong>
+        </button></div>
+    </div>
  </div>
 </body>
 <script type="text/javascript">
@@ -65,11 +94,13 @@
     yxy:'余晓扬',
     zyq:'张伊倩',
     fac:'符奥聪',
+    lyf:'吕云飞',
   },
   projectList = {
     process:'【数字化研发-工艺】',
     lowcode:'【乐仓工坊】',
     baseline:'【数字化研发-基线】', 
+    rocket:'【数字化研发-天津火箭】',
     lzos:'【乐造OS】',
   }
   window.onload = init()
@@ -118,7 +149,11 @@
     let weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
     let res = name + '-' + formatDate() + '-' + '工作日报' + '-' + weekday[nowData.getDay()] + '<br>' + project
     let text = content.split('\n')
-    let arr=  text.filter(str => !!str);
+    var arr =  text.filter(str => !!str);
+    if(checkList.length){
+      arr = arr.concat(checkList)
+    }
+    console.log(arr, checkList,  checkList.length)
     arr.forEach(function(item, index){
       if(item.length !== 0){
         res += '<br>' + (index+1) + '.' + item
@@ -137,5 +172,22 @@
     document.body.removeChild(textareaC);//移除DOM元素
     return res;
   }
+  const form = document.getElementById("form");
+  var checkList = []
+  form.addEventListener('click', function(e){
+      checkList = []
+      if(e.target.classList.contains('checkChild')) {
+          const checkChildList = document.getElementsByClassName('checkChild');
+          const allCheckChildNum = checkChildList.length;
+          let checkedNum = 0;
+          for(let checkChild of checkChildList) {
+               if (checkChild.checked) {
+                  checkList.push(checkChild.value)
+                  console.log(checkList);
+                  checkedNum++;
+               }
+           }       
+     }
+  }, false);
 </script>
 </html>
