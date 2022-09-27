@@ -3,23 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>生成日报</title>
   <style>
+    *{margin:0;padding:0}
     .content{
-      height: 100%;
+      width: 10rem;
+      background-color: #f6f7f9;
+      font-size: 0.53rem; /* 20px*/
+      height: 100vh;
       display: flex;
-      justify-content: center;
-      align-content: flex-start;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: flex-start;
       flex-direction: column;
     }
+    .titel{
+      color: rgba(69, 90, 100, 0.6);
+      line-height: 40px;
+      font-size: 16px;
+      padding: 5px 10px;
+    }
+    .boder{
+      border-bottom: 1px solid #ebedf0 ;
+    }
     .btn{
+      font-size: 16px;
       height: 40px; 
-      width: 30%;
-      margin-right: 8px;
-      margin-bottom: 12px;
-      border-radius: 3px;
+      width: 33%;
+      border-radius: 8px;
       border: 1px solid #1890ff;
       color: #fff;
       background-color: #1890ff;
@@ -27,7 +38,7 @@
       box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
     }
     .footer{
-      width: 80%;
+      width: 100%;
       position:fixed;
       bottom: 35px;
     }
@@ -35,35 +46,91 @@
       display: flex;
       justify-content: space-around;;
     }
+    .form{    
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .middle{
+      margin: 0 10%;
+    }
+    .textArea{
+      font-size: 16px;
+      width: 100%;
+    }
+    .model{
+      line-height: 36px;
+      font-size: 16px;
+      width: 10rem;
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background-color: #fff;
+    }
+    .model-name{
+      color: #323233;
+      margin-left: 15px;
+    }
+    .model-value{
+      color: #969799;
+      margin-right: 15px;
+    }
+    #res{
+      min-height: 100px;
+      padding: 10px 20px;
+      width: 9rem;
+      color: #969799;
+      font-size: 16px;
+      background-color: #fff;
+    }
   </style>
 </head>
 <body>
   <div class="content">
-    <h2 id="name"></h2>
-    <h2 id="project"></h2>
-    <br>
-    <div>
-      <textarea id="story" name="story" rows="6" cols="33"></textarea>
+    <div class="titel">基础信息</div>
+    <div class="model">
+      <div class="model-name">姓名</div>
+      <div class="model-value" id="name"></div>
     </div>
-    <br>
-    <form id="form" action="" method="get" target="targetIfr">
-      <input type="checkbox" class="check checkChild" value="项目需求评审" name="name"> 
-      <span>项目需求评审</span>
-      <br>     
-      <input type="checkbox" class="check checkChild" value="项目迭代验收" name="name"> 
-      <span>项目迭代验收</span>
-      <br>  
-      <input type="checkbox" class="check checkChild" value="迭代用例评审" name="name"> 
-      <span>迭代用例评审</span>
-      <br>
-      <input type="checkbox" class="check checkChild" value="修复bug" name="name">
-      <span>修复bug</span>
-      <br>
-      <input type="checkbox" class="check checkChild" value="接口联调" name="name">
-      <span>接口联调</span>
-      <br>
+    <div class="boder"></div>
+    <div class="model">
+      <div class="model-name">业务线</div>
+      <div class="model-value" id="project"></div>
+    </div>
+    <div class="titel">日报信息</div>
+    <div class="middle">
+      <textarea id="story" class="textArea" name="story" rows="6" cols="33"></textarea>
+    </div>
+    <div class="titel">候选内容</div>
+    <form id="form" action="" method="get" target="targetIfr" class="form">
+      <div class="model"> 
+        <div class="model-name">项目需求评审</div>
+        <input type="checkbox" class="check checkChild model-value" value="项目需求评审" name="name">
+      </div>  
+     <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">项目迭代验收</div>
+        <input type="checkbox" class="check checkChild model-value" value="项目迭代验收" name="name"> 
+      </div>   
+      <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">迭代用例评审</div>
+        <input type="checkbox" class="check checkChild model-value" value="迭代用例评审" name="name"> 
+      </div>
+      <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">修复bug</div>
+        <input type="checkbox" class="check checkChild model-value" value="修复bug" name="name">
+      </div>
+      <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">接口联调</div>
+        <input type="checkbox" class="check checkChild model-value" value="接口联调" name="name">
+      </div>
     </form>
-    <br>
+    <div class="titel">生成内容</div>
     <div id="res"></div>
     <div class="footer">
       <div class="footer-btn">
@@ -77,6 +144,17 @@
  </div>
 </body>
 <script type="text/javascript">
+  function setRootRem() {
+      const root = document.documentElement;
+      /** 以iPhone6为例：布局视口为375px，我们把它分成10份，则1rem = 37.5px，
+       * 这时UI给定一个元素的宽为375px（设备独立像素），
+       * 我们只需要将它设置为375 / 37.5 = 10rem。
+      */
+      const scale = root.clientWidth / 10
+      root.style.fontSize = scale + 'px'  
+  }
+  setRootRem()
+  window.addEventListener('resize', setRootRem)
   userList = {
     lpx:'刘佩鑫',
     lpb:'雷鹏宾',
