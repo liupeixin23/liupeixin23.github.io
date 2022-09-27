@@ -197,11 +197,11 @@
   function init() {
     window.location.search.substring(1).split('&').forEach(function (item) {
       let arr = item.split('=')
-      console.log(arr)
-      if (arr[0] == 'name') {
-        document.getElementById("name").innerHTML = userList[arr[1]]
-      } else if (arr[0] == 'project') {
-        document.getElementById("project").innerHTML = projectList[arr[1]]
+      let pattern = new RegExp("[\u4E00-\u9FA5]+")
+      if(arr[0] == 'name'){
+         document.getElementById("name").innerHTML = pattern.test(decodeURIComponent(arr[1])) ? decodeURIComponent(arr[1]) : userList[arr[1]]
+      } else if(arr[0] == 'project'){
+        document.getElementById("project").innerHTML = pattern.test(decodeURIComponent(arr[1])) ? '【'+  decodeURIComponent(arr[1]) +'】' : projectList[arr[1]]
       }
     })
   }
@@ -234,7 +234,10 @@
     let weekday = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六")
     let res = '工作日报' + ' ' + name + ' ' + formatDate() + ' ' + weekday[nowData.getDay()] + '<br>' + project
     let text = content.split('\n')
-    let arr = text.filter(str => !!str);
+    let arr = text.filter(str => !!str); 
+    if(checkList.length){
+      arr = arr.concat(checkList)
+    }
     arr.forEach(function (item, index) {
       res += '<br>' + (index + 1) + '.' + item
     })
