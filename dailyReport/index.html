@@ -7,7 +7,8 @@
   <title>生成日报</title>
   <style>
     *{margin:0;padding:0}
-    .content{
+    .content{    
+      overflow: scroll;
       width: 10rem;
       background-color: #f6f7f9;
       font-size: 0.53rem; /* 20px*/
@@ -52,6 +53,14 @@
       flex-direction: column;
       width: 100%;
     }
+    input[type='checkbox']{
+      width:16px;
+      height:16px;
+      vertical-align:middle;
+    }
+    .check{
+      margin: 10px 15px
+    }
     .middle{
       margin: 0 10%;
     }
@@ -78,17 +87,32 @@
       margin-right: 15px;
     }
     #res{
+      height: 200px;  
       padding: 10px 20px;
       width:  calc(100% - 40px);
-      color: #969799;
       font-size: 16px;
-      background-color: #fff;
     }
     .blank{
-      background-color: #fff;
+      background-color: #f6f7f9;
       width: 100%;
       min-height: 75px;    
     }
+    .this-div{
+      background-image: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #149639 50%, #E6D205 75%, #147B96);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-background-size: 200% 100%;
+      -webkit-animation:  maskedAnimation 4s infinite linear;
+  }
+ 
+  @keyframes maskedAnimation {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+  }
   </style>
 </head>
 <body>
@@ -135,7 +159,7 @@
       </div>
     </form>
     <div class="titel">生成内容</div>
-    <div id="res"></div>
+    <div id="res" class="this-div"></div>
     <div class="blank"></div>
     <div class="footer">
       <div class="footer-btn">

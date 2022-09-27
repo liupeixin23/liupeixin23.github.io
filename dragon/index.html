@@ -1,67 +1,190 @@
-<!--
- * @Author: liupeixin liupx@nancal.com
- * @Date: 2022-08-01 17:37:30
- * @LastEditors: liupeixin liupx@nancal.com
- * @LastEditTime: 2022-08-05 10:59:08
- * @FilePath: /my-blog/source/dragon/index.html
- * @Description: 
- * 
- * Copyright (c) 2022 by liupeixin liupx@nancal.com, All Rights Reserved. 
--->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>生成日报</title>
   <style>
-    .content {
+    *{margin:0;padding:0}
+    .content{    
+      overflow: scroll;
+      width: 10rem;
+      background-color: #f6f7f9;
+      font-size: 0.53rem; /* 20px*/
+      height: 100vh;
       display: flex;
-      justify-content: center;
-      align-content: flex-start;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: flex-start;
       flex-direction: column;
     }
-
-    .btn {
-      height: 30px;
-      margin-right: 8px;
-      margin-bottom: 12px;
-      border-radius: 3px;
+    .titel{
+      color: rgba(69, 90, 100, 0.6);
+      line-height: 40px;
+      font-size: 16px;
+      padding: 5px 10px;
+    }
+    .boder{
+      border-bottom: 1px solid #ebedf0 ;
+    }
+    .btn{
+      font-size: 16px;
+      height: 40px; 
+      width: 33%;
+      border-radius: 8px;
       border: 1px solid #1890ff;
       color: #fff;
       background-color: #1890ff;
       text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
       box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
     }
+    .footer{
+      width: 100%;
+      position:fixed;
+      bottom: 35px;
+    }
+    .footer-btn{
+      display: flex;
+      justify-content: space-around;;
+    }
+    .form{    
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    input[type='checkbox']{
+      width:16px;
+      height:16px;
+      vertical-align:middle;
+    }
+    .check{
+      margin: 10px 15px
+    }
+    .middle{
+      margin: 0 10%;
+    }
+    .textArea{
+      font-size: 16px;
+      width: 100%;
+    }
+    .model{
+      line-height: 36px;
+      font-size: 16px;
+      width: 10rem;
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background-color: #fff;
+    }
+    .model-name{
+      color: #323233;
+      margin-left: 15px;
+    }
+    .model-value{
+      color: #969799;
+      margin-right: 15px;
+    }
+    #res{
+      height: 200px;  
+      padding: 10px 20px;
+      width:  calc(100% - 40px);
+      font-size: 16px;
+    }
+    .blank{
+      background-color: #f6f7f9;
+      width: 100%;
+      min-height: 75px;    
+    }
+    .this-div{
+      background-image: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #149639 50%, #E6D205 75%, #147B96);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-background-size: 200% 100%;
+      -webkit-animation:  maskedAnimation 4s infinite linear;
+  }
+ 
+  @keyframes maskedAnimation {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+  }
   </style>
 </head>
-
 <body>
   <div class="content">
-    <h2 id="name"></h2>
-    <h2 id="project"></h2>
-    <br>
-    <div>
-      <textarea id="story" name="story" rows="6" cols="33"></textarea>
+    <div class="titel">基础信息</div>
+    <div class="model">
+      <div class="model-name">姓名</div>
+      <div class="model-value" id="name"></div>
     </div>
-    <br>
-    <div>
-      <button class="btn" type="submit" onclick="generateDailyReport()">
+    <div class="boder"></div>
+    <div class="model">
+      <div class="model-name">业务线</div>
+      <div class="model-value" id="project"></div>
+    </div>
+    <div class="titel">日报信息</div>
+    <div class="middle">
+      <textarea id="story" class="textArea" name="story" rows="6" cols="33"></textarea>
+    </div>
+    <div class="titel">候选内容</div>
+    <form id="form" action="" method="get" target="targetIfr" class="form">
+      <div class="model"> 
+        <div class="model-name">项目需求评审</div>
+        <input type="checkbox" class="check checkChild model-value" value="项目需求评审" name="name">
+      </div>  
+     <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">项目迭代验收</div>
+        <input type="checkbox" class="check checkChild model-value" value="项目迭代验收" name="name"> 
+      </div>   
+      <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">迭代用例评审</div>
+        <input type="checkbox" class="check checkChild model-value" value="迭代用例评审" name="name"> 
+      </div>
+      <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">修复bug</div>
+        <input type="checkbox" class="check checkChild model-value" value="修复bug" name="name">
+      </div>
+      <div class="boder"></div>
+      <div class="model">
+        <div class="model-name">接口联调</div>
+        <input type="checkbox" class="check checkChild model-value" value="接口联调" name="name">
+      </div>
+    </form>
+    <div class="titel">生成内容</div>
+    <div id="res" class="this-div"></div>
+    <div class="blank"></div>
+    <div class="footer">
+      <div class="footer-btn">
+        <button class="btn" type="submit" onclick="generateDailyReport()">
         <strong>生成日报</strong>
-      </button>
-      <button class="btn" type="submit" onclick="copyToClipBoard()">
-        <strong>复制日报</strong>
-      </button>
+        </button>
+        <button class="btn" type="submit" onclick="copyToClipBoard()">
+          <strong>复制日报</strong>
+        </button></div>
     </div>
-    <br>
-    <div id="res"></div>
-  </div>
+ </div>
 </body>
 <script type="text/javascript">
+  function setRootRem() {
+      const root = document.documentElement;
+      /** 以iPhone6为例：布局视口为375px，我们把它分成10份，则1rem = 37.5px，
+       * 这时UI给定一个元素的宽为375px（设备独立像素），
+       * 我们只需要将它设置为375 / 37.5 = 10rem。
+      */
+      const scale = root.clientWidth / 10
+      root.style.fontSize = scale + 'px'  
+  }
+  setRootRem()
+  window.addEventListener('resize', setRootRem)
+
   userList = {
     xjl: '薛锦龙',
     tk: '拓凯',
@@ -128,6 +251,22 @@
     document.body.removeChild(textareaC);//移除DOM元素
     return res;
   }
+  const form = document.getElementById("form");
+  var checkList = []
+  form.addEventListener('click', function(e){
+      checkList = []
+      if(e.target.classList.contains('checkChild')) {
+          const checkChildList = document.getElementsByClassName('checkChild');
+          const allCheckChildNum = checkChildList.length;
+          let checkedNum = 0;
+          for(let checkChild of checkChildList) {
+               if (checkChild.checked) {
+                  checkList.push(checkChild.value)
+                  console.log(checkList);
+                  checkedNum++;
+               }
+           }       
+     }
+  }, false);
 </script>
-
 </html>
