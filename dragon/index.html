@@ -191,7 +191,7 @@
     qxb: '齐信彬',
   },
   projectList = {
-    process: '624工艺',
+    process: '331项目',
   }
   window.onload = init()
   function init() {
@@ -232,7 +232,7 @@
     let time = getTimeByZone(-3, nowTime)
     let nowData = new Date(time)
     let weekday = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六")
-    let res = '工作日报' + ' ' + name + ' ' + formatDate() + ' ' + weekday[nowData.getDay()] + '<br>' + project
+    let res = '工作日报' + ' ' + name + ' ' + formatDate() + ' ' + project
     let text = content.split('\n')
     let arr = text.filter(str => !!str); 
     if(checkList.length){
